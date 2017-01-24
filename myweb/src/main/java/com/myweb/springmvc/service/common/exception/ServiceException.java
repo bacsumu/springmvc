@@ -1,5 +1,10 @@
 package com.myweb.springmvc.service.common.exception;
 
+/**
+ * 서비스 공통 예외 클래스.
+ * @author bacsumu
+ *
+ */
 @SuppressWarnings("serial")
 public class ServiceException extends RuntimeException  {
 	/**

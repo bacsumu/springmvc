@@ -4,6 +4,10 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
+/**
+ * 소스코드 상에서 현재 bean이 적용된 spring context를 반환함.
+ * <p><bean id="applicationContextProvider" class="com.myweb.springmvc.service.common.context.ApplicationContextProvider"/>
+ */
 public class ApplicationContextProvider  implements ApplicationContextAware{
 	private static ApplicationContext context;
 	
