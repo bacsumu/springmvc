@@ -1,2 +1,2 @@
 # springmvc
-redme
+Spring MVC  코드
