@@ -28,50 +28,21 @@ public class SecurityInterceptor implements HandlerInterceptor{
 	@Value("#{commonProperties['security.http.intercept-url.isAuthenticated'].split(',')}")
 	private String[] httpInterceptUrlIsAuthenticated;
 	
-	// 로그인 페이지 [GET]
+	// 로그인 페이지 URL [GET]
 	@Value("#{commonProperties['security.http.form-login.login-page']}")
 	private String httpFormLoginLoginPage;
-	// 로그인 처리 url [POST]
-	@Value("#{commonProperties['security.http.form-login.login-processing-url']}")
-	private String httpFormLoginLoginProcessingUrl;
-	// 로그후 페이지 [GET]
-	@Value("#{commonProperties['security.http.form-login.default-target-url']}")
-	private String httpFormLoginDefaultTargetUrl;
-	
-	// 로그아웃 호출 URL [POST]
-	@Value("#{commonProperties['security.http.logout.logout-url']}")
-	private String httpLogoutLogoutUrl;
-	// 로그아웃 성공 후 URL [GET]
-	@Value("#{commonProperties['security.http.logout.logout-success-url']}")
-	private String httpLogoutLogoutSuccessUrl;
 	
 	@Autowired
 	SessionManager	sessionManager;
 	
 	/**
 	 * 컨트롤러 @RequestMapping 함수 호출 전 
+	 * @return true이면 컨트롤러의 함수 호출이 진행되고 false이면 진행 중지 됨.
 	 */
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		String requestUri = request.getRequestURI();
-		String method = request.getMethod();
 		
-		// 로그인 페이지 인지 세션이 있다면 로그인 성공 페이지로 이동
-		if(method.toUpperCase().equals("GET") && httpFormLoginLoginPage.equals(requestUri)){
-			AuthorityUser authUser = sessionManager.getAuthUser();
-			if(authUser != null){
-				response.sendRedirect(httpFormLoginDefaultTargetUrl);
-				return false;
-			}
-		}
-		
-		// 로그아웃 페이지 호출 시 세션이 없다면 로그인 페이지로 이동
-		if(httpLogoutLogoutUrl.equals(requestUri)){
-			if(sessionManager.getAuthUser() == null){
-				response.sendRedirect(httpLogoutLogoutSuccessUrl);
-				return false;
-			}
-		}
 		// 인증 예외 url 처리
 		if(AntPathMatcherUtil.matchArray(httpInterceptUrlNone, requestUri))
 			return true;
@@ -79,7 +50,8 @@ public class SecurityInterceptor implements HandlerInterceptor{
 		if(AntPathMatcherUtil.matchArray(httpInterceptUrlIsAuthenticated, requestUri)){
 			AuthorityUser authUser = sessionManager.getAuthUser();
 			if(authUser == null){
-				// ajax 호출 인 경우 로그인페이지로 이동 status 값을 401로 전달
+				// ajax 호출 인 경우 로그인페이지로 이동을 위한 status 값을 401로 전달
+				// 처리내용은 jquery ajax 설정에서 로그인 페이지로 이동 처리
 				if("XMLHttpRequest".equals(request.getHeader("X-Requested-With"))){
 					//401 Unauthorized
 					response.setStatus(HttpStatus.UNAUTHORIZED.value());

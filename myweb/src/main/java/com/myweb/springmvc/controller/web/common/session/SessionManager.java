@@ -17,14 +17,17 @@ import com.myweb.springmvc.entity.user.User;
 public class SessionManager {
 	public static final String USER_SESSION_NAME = "authUser";
 	
-	// 새션 만료시간
+	/**
+	 * 세션 만료 설정 시간
+	 * <p>config-common.properties 설정파일의 값 참조
+	 */
 	@Value("#{commonProperties['security.http.session.maxInactiveInterval']}")
 	private int maxInactiveInterval;
 	
 	/**
 	 * 세션에 속성 설정
-	 * @param attributeName
-	 * @param object
+	 * @param attributeName 속성 명
+	 * @param object 속성 값
 	 */
 	public void setAttribute(String attributeName, Object object) {
 		HttpServletRequest request = RequestContextProvider.getCurrentRequest();
@@ -36,8 +39,8 @@ public class SessionManager {
 	
 	/**
 	 * 세션 속성 반환
-	 * @param attributeName
-	 * @return
+	 * @param attributeName 반환하고자 하는 속성 명
+	 * @return 속성값이 있다면 값이 반화되고 없다면 null 반환
 	 */
 	public Object getAttribute(String attributeName){
 		HttpServletRequest request = RequestContextProvider.getCurrentRequest();
@@ -50,7 +53,7 @@ public class SessionManager {
 	
 	/**
 	 * 인증 사용자 설정
-	 * @param user
+	 * @param user 인증된 사용자 정보
 	 */
 	public void setAuthUser(AuthorityUser user) {
 		setAttribute(SessionManager.USER_SESSION_NAME, user);
@@ -74,7 +77,7 @@ public class SessionManager {
 	}
 	/**
 	 * 인증 사용자 반환
-	 * @return
+	 * @return 세션에 등록된 인증된 사용자 정보
 	 */
 	public AuthorityUser getAuthUser() {
 		return getAuthUser(RequestContextProvider.getCurrentRequest());

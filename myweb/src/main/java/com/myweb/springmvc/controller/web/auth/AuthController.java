@@ -1,10 +1,6 @@
 package com.myweb.springmvc.controller.web.auth;
 
 import java.io.IOException;
-import java.util.Locale;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,10 +26,10 @@ import com.myweb.springmvc.service.common.exception.ServiceException;
 public class AuthController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	// 로그후 페이지 [GET]
+	// 로그 성공 후 호출 URL [GET]
 	@Value("#{commonProperties['security.http.form-login.default-target-url']}")
 	private String httpFormLoginDefaultTargetUrl;
-	// 로그아웃 성공 후 URL [GET]
+	// 로그아웃 성공 후 호출 URL [GET]
 	@Value("#{commonProperties['security.http.logout.logout-success-url']}")
 	private String httpLogoutLogoutSuccessUrl;
 	
@@ -44,28 +40,23 @@ public class AuthController {
 	SessionManager	sessionManager;
 	
 	@RequestMapping(value = { "", "/" }, method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
+	public String home(Model model) {
 		return "redirect:/auth/login";
 	}
 
 	/**
 	 * 로그인 페이지 요청
-	 * @param locale
-	 * @param model
-	 * @return
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login(Locale locale, Model model) {
+	public String login(Model model) {
 		return "auth/login";
 	}
+	
 	/**
 	 * 로그인 처리
-	 * @param locale
-	 * @param model
-	 * @return
 	 */
-	@RequestMapping(value = "/loginProc", method = RequestMethod.POST, headers="Accept=application/json")
-	public @ResponseBody JsonResult loginProc(HttpServletRequest request, @ModelAttribute User user, Model model, BindingResult result) {
+	@RequestMapping(value = "/loginProc", method = RequestMethod.POST)
+	public @ResponseBody JsonResult loginProc(@ModelAttribute User user, Model model, BindingResult result) {
 		try{
 			// 1. 로그인 서비스 호출
 			AuthorityUser findedUser = authService.login(user);
@@ -83,7 +74,7 @@ public class AuthController {
 	}
 
 	@RequestMapping(value = "/logout", method = {RequestMethod.GET,RequestMethod.POST})
-	public String logoutPage(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public String logoutPage() throws IOException {
 		// 1. logout service 호출
 		AuthorityUser authUser = sessionManager.getAuthUser();
 		if(authUser != null){

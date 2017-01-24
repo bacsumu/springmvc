@@ -15,10 +15,10 @@
 	<!-- java, jsp에서 사용하기 위한 프로퍼티 파일 로딩 -->
 	<util:properties id="commonProperties" location="classpath:config/properties/config-common.properties"/>
 	
-	<!-- entity, repository, service 등 annotation scan하여 bean 등록 처리 -->
-	<context:component-scan base-package="com.lgu.sdn.tsdn.entity" />
-	<context:component-scan base-package="com.lgu.sdn.tsdn.repository" />
-	<context:component-scan base-package="com.lgu.sdn.tsdn.service" />
+	<!-- entity, repository, service DI, IoC 처리 -->
+	<context:component-scan base-package="com.myweb.springmvc.entity" />
+	<context:component-scan base-package="com.myweb.springmvc.repository" />
+	<context:component-scan base-package="com.myweb.springmvc.service" />
 	
 	<!-- Service에서 현재 spring context에 접근하기 위한 클래서 선언 -->
 	<bean id="applicationContextProvider" class="com.myweb.springmvc.service.common.context.ApplicationContextProvider"/>

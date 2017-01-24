@@ -11,8 +11,10 @@ public class AuthServiceImpl implements AuthService{
 
 	@Override
 	public AuthorityUser login(User user) throws ServiceException {
-		// TODO Auto-generated method stub
-		return null;
+		if("test".equals(user.getLoginid()) && "1234".equals(user.getPassword()))
+			return user;
+		else 
+			throw new ServiceException("잘못된 사용자 입니다.");
 	}
 
 	@Override
