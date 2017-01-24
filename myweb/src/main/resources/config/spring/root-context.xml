@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/util
+			http://www.springframework.org/schema/util/spring-util.xsd
+			http://www.springframework.org/schema/context 
+            http://www.springframework.org/schema/context/spring-context.xsd
+			">
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<!-- java, jsp에서 사용하기 위한 프로퍼티 파일 로딩 -->
+	<util:properties id="commonProperties" location="classpath:config/properties/config-common.properties"/>
+	
+	<!-- entity, repository, service 등 annotation scan하여 bean 등록 처리 -->
+	<context:component-scan base-package="com.lgu.sdn.tsdn.entity" />
+	<context:component-scan base-package="com.lgu.sdn.tsdn.repository" />
+	<context:component-scan base-package="com.lgu.sdn.tsdn.service" />
+	
+	<!-- Service에서 현재 spring context에 접근하기 위한 클래서 선언 -->
+	<bean id="applicationContextProvider" class="com.myweb.springmvc.service.common.context.ApplicationContextProvider"/>
+		
+</beans>
