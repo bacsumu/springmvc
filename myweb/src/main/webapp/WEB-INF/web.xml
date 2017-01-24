@@ -13,6 +13,11 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+	
+	<!-- RequestContextHolder.getRequestAttributes() 를 사용하기 위한 리스너 설정 -->
+	<listener>
+	  <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+	</listener>
 
 	<!-- Processes application requests -->
 	<servlet>
