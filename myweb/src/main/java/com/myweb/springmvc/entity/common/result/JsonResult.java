@@ -9,11 +9,9 @@ import java.util.Map;
  */
 public class JsonResult implements Serializable{
 	private static final long serialVersionUID = 1436548017458911106L;
-
 	public enum RESULT {
 		SUCCESS /* 요청 성공 */, FAIL /* 요청 실패 */, ERROR /* 요청 오류 */
 	};
-
 	/**
 	 * 결과 값
 	 */
