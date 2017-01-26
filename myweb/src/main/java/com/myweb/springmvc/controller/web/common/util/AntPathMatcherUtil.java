@@ -3,19 +3,15 @@ package com.myweb.springmvc.controller.web.common.util;
 import org.springframework.util.AntPathMatcher;
 
 /**
- * Ant Path Å¸ÀÔ ÆĞ½º ¸ÅÆÃ À¯Æ¿
- * <p>½ºÇÁ¸µ ¶óÀÌºê·¯¸®ÀÇ ¹è¿­Ã³¸®±â´É È®Àå
+ * Ant Path í˜•ì‹ URI ì²˜ë¦¬ ìœ í‹¸ í´ë˜ìŠ¤
  */
 public class AntPathMatcherUtil {
+	private static AntPathMatcher pathMatcher = new AntPathMatcher();
+	
 	/**
-	 * ¿©·¯°³ÀÇ ÆĞÅÏ ¸ÅÄª °Ë»ç
-	 * @param patterns °Ë»çÇÒ Ant Path Å¸ÀÔ ÆĞÅÏ
-	 * @param path °Ë»çÇÏ°íÀÚ ÇÏ´Â URI
-	 * @return ÆĞÅÏ°ú¸ÅÄ¡µÇ´Â°ÍÀÌ ÀÖ´Ù¸é true, ±×·¸Áö ¾Ê´Ù¸é false ¹İÈ¯
+	 * Ant Path ë°°ì—´ íŒŒë¼ë¯¸í„° ê²€ì‚¬
 	 */
 	public static boolean matchArray(String[] patterns, String path){
-		AntPathMatcher pathMatcher = new AntPathMatcher();
-		
 		if(patterns == null || patterns.length == 0)
 			return true;
 		for(String pattern : patterns){
@@ -28,13 +24,9 @@ public class AntPathMatcherUtil {
 	}
 	
 	/**
-	 * ÇÏ³ªÀÇ URI ÆĞÅÏ ¸ÅÄª °Ë»ç
-	 * @param pattern °Ë»çÇÒ Ant Path Å¸ÀÔ ÆĞÅÏ
-	 * @param path °Ë»çÇÏ°íÀÚ ÇÏ´Â URI
-	 * @return ÆĞÅÏ°ú¸ÅÄ¡µÇ´Â°ÍÀÌ ÀÖ´Ù¸é true, ±×·¸Áö ¾Ê´Ù¸é false ¹İÈ¯
+	 * Ant Path ê²€ì‚¬
 	 */
 	public static boolean match(String pattern, String path){
-		AntPathMatcher pathMatcher = new AntPathMatcher();
 		return pathMatcher.match(pattern, path);
 	}
 }

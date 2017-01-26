@@ -6,11 +6,11 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 /**
- * ÇöÀç request Á¤º¸ Á¢±Ù °ü¸® Å¬·¡½º
+ * Controller íŒŒë¼ë¯¸í„°ê°€ ì•„ë‹Œ JAVA Beanì—ì„œ í˜„ì¬ ìš”ì²­ëœ HttpServletRequestë¥¼ ë°˜í™˜í•˜ê¸° ìœ„í•œ í´ë˜ìŠ¤
  */
 public class RequestContextProvider {
 	/**
-	 * ÇöÀç ¿äÃ»µÈ HttpServletRequest ¹İÈ¯
+	 * í˜„ì¬ ìš”ì²­ëœ HttpServletRequest ë°˜í™˜
 	 * @return
 	 */
 	public static HttpServletRequest getCurrentRequest() {      

@@ -21,15 +21,18 @@ import com.myweb.springmvc.entity.user.User;
 import com.myweb.springmvc.service.auth.AuthService;
 import com.myweb.springmvc.service.common.exception.ServiceException;
 
+/**
+ * ì‚¬ìš©ì ì¸ì¦ ì²˜ë¦¬ë¥¼ ìœ„í•œ ì»¨íŠ¸ë¡¤ëŸ¬
+ */
 @Controller
 @RequestMapping("/auth")
 public class AuthController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	// ·Î±× ¼º°ø ÈÄ È£Ãâ URL [GET]
+	// ë¡œê·¸ì¸ ì„±ê³µ í›„ ì´ë™í•  í˜ì´ì§€
 	@Value("#{commonProperties['security.http.form-login.default-target-url']}")
 	private String httpFormLoginDefaultTargetUrl;
-	// ·Î±×¾Æ¿ô ¼º°ø ÈÄ È£Ãâ URL [GET]
+	// ë¡œê·¸ì•„ì›ƒ ì„±ê³µ í›„ ì´ë™í•  í˜ì´ì§€
 	@Value("#{commonProperties['security.http.logout.logout-success-url']}")
 	private String httpLogoutLogoutSuccessUrl;
 	
@@ -45,7 +48,7 @@ public class AuthController {
 	}
 
 	/**
-	 * ·Î±×ÀÎ ÆäÀÌÁö ¿äÃ»
+	 * ë¡œê·¸ì¸ í˜ì´ì§€ ì´ë™
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(Model model) {
@@ -53,19 +56,19 @@ public class AuthController {
 	}
 	
 	/**
-	 * ·Î±×ÀÎ Ã³¸®
+	 * ë¡œê·¸ì¸ ì²˜ë¦¬
 	 */
 	@RequestMapping(value = "/loginProc", method = RequestMethod.POST)
 	public @ResponseBody JsonResult loginProc(@ModelAttribute User user, Model model, BindingResult result) {
 		try{
-			// 1. ·Î±×ÀÎ ¼­ºñ½º È£Ãâ
+			// 1. ë¡œê·¸ì¸ ì„œë¹„ìŠ¤ í˜¸ì¶œ
 			AuthorityUser findedUser = authService.login(user);
 						
-			// 2. ¼¼¼Ç »ı¼º
+			// 2. ì„¸ì…˜ì— ë¡œê·¸ì¸ ì‚¬ìš©ì ë“±ë¡
 			sessionManager.setAuthUser(findedUser);
 			
-			// 3. json °á°ú ¹İÈ¯
-			JsonResult jsonResult = new JsonResult(JsonResult.RESULT.SUCCESS, "·Î±×ÀÎ ¼º°ø");
+			// 3. json ë°ì´í„° ë°˜í™˜
+			JsonResult jsonResult = new JsonResult(JsonResult.RESULT.SUCCESS, "ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 			jsonResult.setData("targetUrl", httpFormLoginDefaultTargetUrl);
 			return jsonResult;
 		}catch(ServiceException e){
@@ -73,15 +76,18 @@ public class AuthController {
 		}
 	}
 
+	/**
+	 * ë¡œê·¸ì•„ì›ƒ ì²˜ë¦¬
+	 */
 	@RequestMapping(value = "/logout", method = {RequestMethod.GET,RequestMethod.POST})
 	public String logoutPage() throws IOException {
-		// 1. logout service È£Ãâ
+		// 1. logout service í˜¸ì¶œ
 		AuthorityUser authUser = sessionManager.getAuthUser();
 		if(authUser != null){
 			authService.logout(authUser);
 		}
 		
-		// 2. ÀÎÁõ »ç¿ëÀÚ Á¦°Å
+		// 2. ì„¸ì…˜ì— ë¡œê·¸ì¸ ì‚¬ìš©ì ì´ˆê¸°í™”
 		sessionManager.setAuthUser(null);
 		return "redirect:"+httpLogoutLogoutSuccessUrl;
 	}

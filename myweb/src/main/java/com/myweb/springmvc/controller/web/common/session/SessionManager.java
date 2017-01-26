@@ -11,36 +11,30 @@ import com.myweb.springmvc.entity.common.authority.AuthorityUser;
 import com.myweb.springmvc.entity.user.User;
 
 /**
- * ¼¼¼Ç °ü¸® Å¬·¡½º
+ * ì„¸ì…˜ ê´€ë¦¬ í´ë˜ìŠ¤
  */
 @Component
 public class SessionManager {
 	public static final String USER_SESSION_NAME = "authUser";
 	
 	/**
-	 * ¼¼¼Ç ¸¸·á ¼³Á¤ ½Ã°£
-	 * <p>config-common.properties ¼³Á¤ÆÄÀÏÀÇ °ª ÂüÁ¶
+	 * ì„¸ì…˜ì˜ ìœ íš¨ì‹œê°„ ì„¤ì • ê°’
 	 */
 	@Value("#{commonProperties['security.http.session.maxInactiveInterval']}")
 	private int maxInactiveInterval;
 	
 	/**
-	 * ¼¼¼Ç¿¡ ¼Ó¼º ¼³Á¤
-	 * @param attributeName ¼Ó¼º ¸í
-	 * @param object ¼Ó¼º °ª
+	 * ì„¸ì…˜ ì„¤ì •ê°’ ì¶”ê°€
 	 */
 	public void setAttribute(String attributeName, Object object) {
 		HttpServletRequest request = RequestContextProvider.getCurrentRequest();
 		HttpSession session = request.getSession(true);
-		// ¼¼¼Ç ¸¸·á½Ã°£ ¼³Á¤
 		session.setMaxInactiveInterval(maxInactiveInterval);
 		session.setAttribute(attributeName, object);
 	}
 	
 	/**
-	 * ¼¼¼Ç ¼Ó¼º ¹İÈ¯
-	 * @param attributeName ¹İÈ¯ÇÏ°íÀÚ ÇÏ´Â ¼Ó¼º ¸í
-	 * @return ¼Ó¼º°ªÀÌ ÀÖ´Ù¸é °ªÀÌ ¹İÈ­µÇ°í ¾ø´Ù¸é null ¹İÈ¯
+	 * ì„¸ì…˜ ì„¤ì •ê°’ ë°˜í™˜
 	 */
 	public Object getAttribute(String attributeName){
 		HttpServletRequest request = RequestContextProvider.getCurrentRequest();
@@ -52,8 +46,7 @@ public class SessionManager {
 	}
 	
 	/**
-	 * ÀÎÁõ »ç¿ëÀÚ ¼³Á¤
-	 * @param user ÀÎÁõµÈ »ç¿ëÀÚ Á¤º¸
+	 * ì„¸ì…˜ì— ì¸ì¦ëœ ì‚¬ìš©ì ë“±ë¡
 	 */
 	public void setAuthUser(AuthorityUser user) {
 		setAttribute(SessionManager.USER_SESSION_NAME, user);
@@ -76,8 +69,7 @@ public class SessionManager {
 		return id;
 	}
 	/**
-	 * ÀÎÁõ »ç¿ëÀÚ ¹İÈ¯
-	 * @return ¼¼¼Ç¿¡ µî·ÏµÈ ÀÎÁõµÈ »ç¿ëÀÚ Á¤º¸
+	 * ì„¸ì…˜ì˜ ì¸ì¦ëœ ì‚¬ìš©ì ë°˜í™˜
 	 */
 	public AuthorityUser getAuthUser() {
 		return getAuthUser(RequestContextProvider.getCurrentRequest());
@@ -87,7 +79,7 @@ public class SessionManager {
 		return session == null ? null : (User) session.getAttribute(USER_SESSION_NAME);
 	}
 	/**
-	 * Á¦¼Ç ¸¸·á Ã³¸®
+	 * ì„¸ì…˜ ì´ˆê¸°í™”
 	 */
 	public void destoryHttpSession(){
 		HttpSession session = getHttpSession();

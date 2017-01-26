@@ -3,26 +3,26 @@ package com.myweb.springmvc.entity.common.authority;
 import java.util.List;
 
 /**
- * ½Ã½ºÅÛ °øÅë ±ÇÇÑ »ç¿ëÀÚ ÀÎÅÍÆäÀÌ½º
+ * ì¸ì¦ëœ ì‚¬ìš©ì ì¸í„°í˜ì´ìŠ¤
  */
 public interface AuthorityUser {
 	/**
-	 * »ç¿ëÀÚ Å°°ª
+	 * ë‚´ë¶€ì—ì„œ ì‚¬ìš©í•  ì‚¬ìš©ì í‚¤
 	 * @return
 	 */
 	public int getUserKey();
 	/**
-	 * ·Î±×ÀÎ ID
+	 * ë¡œê·¸ì¸ ì•„ì´ë””
 	 * @return
 	 */
 	public String getLoginid();
 	/**
-	 * ºñ¹Ğ¹øÈ£
+	 * ë¡œê·¸ì¸ íŒ¨ìŠ¤ì›Œë“œ
 	 * @return
 	 */
 	public String getPassword();
 	/**
-	 * »ç¿ëÀÚ ¸í
+	 * ì‚¬ìš©ì ì´ë¦„
 	 * @return
 	 */
 	public String getUserName();
@@ -32,13 +32,13 @@ public interface AuthorityUser {
 	 */
 	public String getEmail();
 	/**
-	 * ½Ã½ºÅÛ ±ÇÇÑ
+	 * ì‹œìŠ¤í…œ ê¶Œí•œ
 	 * @return
 	 */
 	public String getSysRoll();
 	/**
-	 * ±ÇÇÑ ¸®½ºÆ® ¹İÈ¯
-	 * <p>controller¿¡¼­ AOP ±ÇÇÑ °Ë»ç ½Ã¿¡ »ç¿ë
+	 * ê¶Œí•œ ê²€ì‚¬ë¥¼ ìœ„í•œ ê¶Œí•œ ë¦¬ìŠ¤íŠ¸ ë°˜í™˜
+	 * <p>controller AOP ì—ì„œ í˜¸ì¶œ ë¨
 	 * @return
 	 */
 	public List<String> getAuthorities();

@@ -16,19 +16,19 @@ import com.myweb.springmvc.controller.web.common.util.AntPathMatcherUtil;
 import com.myweb.springmvc.entity.common.authority.AuthorityUser;
 
 /**
- * mvc ¿¡¼­ °øÅë ÀÎÁõ¿©ºÎ °Ë»ç Ã³¸®
+ * Spring MVC ì¸í„°ì…‰í„° : ì¸ì¦ ê²€ì‚¬ í´ë˜ìŠ¤
  */
 public class SecurityInterceptor implements HandlerInterceptor{
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	// ÀÎÁõ ¿¹¿Ü URL ÆĞÅÏ
+	// ì¸ì¦ì´ í•„ìš”ì—†ëŠ” URL ì„¤ì •ê°’ 
 	@Value("#{commonProperties['security.http.intercept-url.none'].split(',')}")
 	private String[] httpInterceptUrlNone; 
-	// ÀÎÁõ ÇÊ¿ä URL ÆĞÅÏ
+	// ì¸ì¦ì´ í•„ìš”í•œ URL ì„¤ì •ê°’ 
 	@Value("#{commonProperties['security.http.intercept-url.isAuthenticated'].split(',')}")
 	private String[] httpInterceptUrlIsAuthenticated;
 	
-	// ·Î±×ÀÎ ÆäÀÌÁö URL [GET]
+	// ë¡œê·¸ì¸ í˜ì´ì§€ URL
 	@Value("#{commonProperties['security.http.form-login.login-page']}")
 	private String httpFormLoginLoginPage;
 	
@@ -36,27 +36,28 @@ public class SecurityInterceptor implements HandlerInterceptor{
 	SessionManager	sessionManager;
 	
 	/**
-	 * ÄÁÆ®·Ñ·¯ @RequestMapping ÇÔ¼ö È£Ãâ Àü 
-	 * @return trueÀÌ¸é ÄÁÆ®·Ñ·¯ÀÇ ÇÔ¼ö È£ÃâÀÌ ÁøÇàµÇ°í falseÀÌ¸é ÁøÇà ÁßÁö µÊ.
+	 * ì»¨íŠ¸ë¡¤ëŸ¬ í˜¸ì¶œ ì „ ì²˜ë¦¬
+	 * @return true ë°˜í™˜ì‹œ ì»¨íŠ¸ë¡¤ëŸ¬ í˜¸ì¶œ, false ë°˜í™˜ì‹œ ì¤‘ì§€
 	 */
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		String requestUri = request.getRequestURI();
 		
-		// ÀÎÁõ ¿¹¿Ü url Ã³¸®
+		// ì¸ì¦ì´ í•„ìš”ì—†ëŠ” URL ê²€ì‚¬
 		if(AntPathMatcherUtil.matchArray(httpInterceptUrlNone, requestUri))
 			return true;
-		// ÀÎÁõÀÌ ÇÊ¿äÇÑ url ¼¼¼Ç °Ë»ç
+		// ì¸ì¦ì´ í•„ìš”í•œ URL ê²€ì‚¬
 		if(AntPathMatcherUtil.matchArray(httpInterceptUrlIsAuthenticated, requestUri)){
+			// í˜„ì¬ ì¸ì¦ë˜ì–´ ìˆëŠ” ì‚¬ìš©ì ì •ë³´ ìš”ì²­
 			AuthorityUser authUser = sessionManager.getAuthUser();
 			if(authUser == null){
-				// ajax È£Ãâ ÀÎ °æ¿ì ·Î±×ÀÎÆäÀÌÁö·Î ÀÌµ¿À» À§ÇÑ status °ªÀ» 401·Î Àü´Ş
-				// Ã³¸®³»¿ëÀº jquery ajax ¼³Á¤¿¡¼­ ·Î±×ÀÎ ÆäÀÌÁö·Î ÀÌµ¿ Ã³¸®
 				if("XMLHttpRequest".equals(request.getHeader("X-Requested-With"))){
-					//401 Unauthorized
+					// ajax ìš”ì²­ì¸ ê²½ìš° HTTP 401 ìƒíƒœê°’ìœ¼ë¡œ ë°˜í™˜
+					// jquery ajaxError ì´ë²¤íŠ¸ í•¸ë“¤ëŸ¬ì—ì„œ ë¡œê·¸ì¸ í˜ì´ì§€ ì´ë™ ì²˜ë¦¬
 					response.setStatus(HttpStatus.UNAUTHORIZED.value());
 					return false;
 				}else{
+					// ë¡œê·¸ì¸ í˜ì´ì§€ë¡œ ì´ë™
 					response.sendRedirect(httpFormLoginLoginPage);
 					return false;
 				}
@@ -66,18 +67,18 @@ public class SecurityInterceptor implements HandlerInterceptor{
 	}
 
 	/**
-	 * ÄÁÆ®·Ñ·¯ @RequestMapping ÇÔ¼ö È£Ãâ ÈÄ
+	 * ì»¨íŠ¸ë¡¤ëŸ¬ í˜¸ì¶œ í›„ ì²˜ë¦¬
 	 */
 	@Override
-	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-		
+	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
+			ModelAndView modelAndView) throws Exception {
 	}
 
 	/**
-	 * ÄÁÆ®·Ñ·¯ View ÆäÀÌÁö »ı¼º ÈÄ
+	 * í´ë¼ì´ì–¸íŠ¸ Response ë°˜í™˜ í›„ ì²˜ë¦¬
 	 */
 	@Override
-	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-		
+	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
+			throws Exception {
 	}
 }

@@ -5,18 +5,18 @@ import com.myweb.springmvc.entity.user.User;
 import com.myweb.springmvc.service.common.exception.ServiceException;
 
 /**
- * ÀÎÁõ Ã³¸® ÀÎÅÍÆäÀÌ½º
+ * ë¡œê·¸ì¸ ê´€ë¦¬ ì„œë¹„ìŠ¤
  */
 public interface AuthService {
 	/**
-	 * ·Î±×ÀÎ Ã³¸®
+	 * ë¡œê·¸ì¸
 	 * @param user
 	 * @return
 	 * @throws ServiceException
 	 */
 	public AuthorityUser login(User user) throws ServiceException;
 	/**
-	 * ·Î±×¾Æ¿ô Ã³¸®
+	 * ë¡œê·¸ì•„ì›ƒ
 	 * @param user
 	 * @throws ServiceException
 	 */

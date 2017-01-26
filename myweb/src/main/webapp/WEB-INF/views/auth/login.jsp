@@ -24,6 +24,9 @@
 	
 <c:url value="/auth/loginProc" var="loginUrl" />
 <script>
+/**
+ * 로그인 처리를 담당하는 인스턴스
+ */
 var LoginHelper = {
 	/* 초기화 */
 	init : function(){

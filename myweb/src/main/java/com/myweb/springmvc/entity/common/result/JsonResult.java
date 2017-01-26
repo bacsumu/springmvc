@@ -5,18 +5,30 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Json °á°ú °øÅë °ª
+ * Json ê²°ê´€ ë°˜í™˜ìš© ê³µí†µ í´ë˜ìŠ¤
  */
 public class JsonResult implements Serializable{
 	private static final long serialVersionUID = 1436548017458911106L;
 
 	public enum RESULT {
-		SUCCESS /* ¼º°ø */, FAIL /* ¾÷¹« Ã³¸® ½ÇÆĞ */, ERROR /* ½Ã½ºÅÛ ¿À·ù */
+		SUCCESS /* ìš”ì²­ ì„±ê³µ */, FAIL /* ìš”ì²­ ì‹¤íŒ¨ */, ERROR /* ìš”ì²­ ì˜¤ë¥˜ */
 	};
 
+	/**
+	 * ê²°ê³¼ ê°’
+	 */
 	private RESULT result = RESULT.SUCCESS;
+	/**
+	 * ê²°ê³¼ ë©”ì‹œì§€
+	 */
 	private String message = "";
+	/**
+	 * ê²°ê³¼ ì½”ë“œ
+	 */
 	private int code;
+	/**
+	 * ê²°ê³¼ ë°ì´í„°
+	 */
 	private Map<String, Object> data = new HashMap<String, Object>();
 
 	public JsonResult() {

@@ -6,7 +6,7 @@ import java.util.List;
 import com.myweb.springmvc.entity.common.authority.AuthorityUser;
 
 /**
- * ½Ã½ºÅÛ »ç¿ëÀÚ Å¬·¡½º
+ * ì‹œìŠ¤í…œ ì‚¬ìš©ì í´ë˜ìŠ¤
  */
 public class User implements AuthorityUser{
 	private int userKey;

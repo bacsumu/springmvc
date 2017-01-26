@@ -5,24 +5,31 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
 /**
- * ¼Ò½ºÄÚµå »ó¿¡¼­ ÇöÀç beanÀÌ Àû¿ëµÈ spring context¸¦ ¹İÈ¯ÇÔ.
+ * beanë¥¼ ìƒì„±í•œ spring context ì ‘ê·¼ì„ ìœ„í•œ í´ë˜ìŠ¤
  * <p><bean id="applicationContextProvider" class="com.myweb.springmvc.service.common.context.ApplicationContextProvider"/>
  */
 public class ApplicationContextProvider  implements ApplicationContextAware{
 	private static ApplicationContext context;
 	
 	/**
-	 * Spring xml¿¡¼­ bean ¼±¾ğ ½Ã context¸¦ ÁÖÀÔ ÇØÁÜ
+	 * root-context.xml ì—ì„œ bean ì„¤ì • ì‹œ íŒŒë¼ë¯¸í„°ë¡œ ApplicationContextë¥¼ í˜¸ì¶œ í•´ì¤€ë‹¤.
 	 */
 	@Override
 	public void setApplicationContext(ApplicationContext arg0) throws BeansException {
 		ApplicationContextProvider.context=arg0;
 	}
-	
+	/**
+	 * spring context ë°˜í™˜
+	 * @return
+	 */
 	public static ApplicationContext getContext() {
 		return ApplicationContextProvider.context;
 	}
-	
+	/**
+	 * spring contextì˜ ì†ì„±ê°’ ë°˜í™˜
+	 * @param propertyKey
+	 * @return
+	 */
 	public static String getProperty(String propertyKey){
 		return getContext().getEnvironment().getProperty(propertyKey);
 	}

@@ -16,6 +16,9 @@
 
 <c:url value="/auth/logout" var="logoutUrl" />
 <script>
+/**
+ * 로그아웃 처리를 담당하는 인스턴스
+ */
 var LogoutHelper = {
 	/* 초기화 */
 	init : function(){
