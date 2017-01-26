@@ -70,7 +70,7 @@ public class AuthController {
 			sessionManager.setAuthUser(findedUser);
 			
 			// 3. json 데이터 반환
-			JsonResult jsonResult = new JsonResult(JsonResult.RESULT.SUCCESS, "�α��� ����");
+			JsonResult jsonResult = new JsonResult(JsonResult.RESULT.SUCCESS, "로그인 성공");
 			jsonResult.setData("targetUrl", httpFormLoginDefaultTargetUrl);
 			return jsonResult;
 		}catch(ServiceException e){
