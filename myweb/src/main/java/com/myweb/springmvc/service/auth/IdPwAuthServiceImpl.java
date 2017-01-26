@@ -11,7 +11,7 @@ import com.myweb.springmvc.service.common.exception.ServiceException;
  * @author bacsumu
  *
  */
-@Service
+@Service("IdPwAuthService")
 public class IdPwAuthServiceImpl implements AuthService{
 
 	@Override
