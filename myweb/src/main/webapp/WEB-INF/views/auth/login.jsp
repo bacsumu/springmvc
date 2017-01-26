@@ -7,7 +7,7 @@
 	<c:import url="/WEB-INF/views/common/commonJsInclude.jsp"/>
 </head>
 <body>
-	Hello Login
+	로그인 정보를 입력 하세요.
 	<form id="loginForm">
 		<table>
 			<tr>
