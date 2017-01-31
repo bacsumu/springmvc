@@ -22,7 +22,7 @@
 		<beans:property name="order" value="0"/>
 	</beans:bean>
 	
-	<!-- request에서 Object 반환 시 json 자동 반환을 위한 jackson 설정  -->
+	<!-- request에서 @ResponseBody Object 반환 시 json 자동 반환을 위한 jackson 라이브러리 설정  -->
 	<beans:bean id="jacksonMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
 	
 	<!-- 컨트롤러 DI, IoC 처리 -->

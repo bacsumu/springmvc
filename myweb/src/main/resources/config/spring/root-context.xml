@@ -15,8 +15,7 @@
 	<!-- java, jsp에서 사용하기 위한 프로퍼티 파일 로딩 -->
 	<util:properties id="commonProperties" location="classpath:config/properties/config-common.properties"/>
 	
-	<!-- entity, repository, service DI, IoC 처리 -->
-	<context:component-scan base-package="com.myweb.springmvc.entity" />
+	<!-- repository, service DI, IoC 처리 -->
 	<context:component-scan base-package="com.myweb.springmvc.repository" />
 	<context:component-scan base-package="com.myweb.springmvc.service" />
 	

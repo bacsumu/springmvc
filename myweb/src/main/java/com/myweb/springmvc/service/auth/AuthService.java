@@ -5,7 +5,7 @@ import com.myweb.springmvc.entity.user.User;
 import com.myweb.springmvc.service.common.exception.ServiceException;
 
 /**
- * 로그인 관리 서비스
+ * 인증 관리 서비스
  */
 public interface AuthService {
 	/**
